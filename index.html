@@ -1,16 +1,242 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Maryam Shaygan</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Maryam Shaygan</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(-45deg,#0A192F,#112240,#1D3557,#0A192F);
+    background-size:400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color:white;
+    line-height:1.7;
+}
+
+@keyframes gradientBG {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:50px 20px;
+}
+
+.hero{
+    text-align:center;
+    padding:100px 20px;
+    animation: fadeIn 1.5s ease;
+}
+
+.hero h1{
+    font-size:4rem;
+    margin-bottom:15px;
+    color:#64FFDA;
+}
+
+.hero h2{
+    font-size:1.6rem;
+    font-weight:300;
+    color:#CCD6F6;
+}
+
+.hero p{
+    max-width:700px;
+    margin:30px auto;
+    font-size:1.1rem;
+    color:#A8B2D1;
+}
+
+.btn{
+    display:inline-block;
+    padding:12px 24px;
+    margin:10px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.github{
+    background:#64FFDA;
+    color:#0A192F;
+}
+
+.linkedin{
+    border:2px solid #64FFDA;
+    color:#64FFDA;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+.section{
+    margin-top:70px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    padding:35px;
+    border-radius:15px;
+    animation: fadeUp 1.5s ease;
+}
+
+.section h3{
+    color:#64FFDA;
+    margin-bottom:20px;
+    font-size:1.8rem;
+}
+
+.research-list li{
+    margin-bottom:12px;
+}
+
+.skills{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.skill{
+    background:#112240;
+    border:1px solid #64FFDA;
+    color:#64FFDA;
+    padding:10px 18px;
+    border-radius:30px;
+}
+
+footer{
+    text-align:center;
+    margin-top:80px;
+    padding-bottom:30px;
+    color:#8892B0;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(-20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media(max-width:768px){
+
+    .hero h1{
+        font-size:2.8rem;
+    }
+
+    .hero h2{
+        font-size:1.2rem;
+    }
+}
+</style>
+
 </head>
 <body>
-    <h1>Maryam Shaygan</h1>
-    <h2>Transportation Engineer & AI/ML Researcher</h2>
 
-    <p>
-        Welcome to my personal website.
-        I am a Transportation engineer and Data scientist
-        focused on operational research and real-time predictions.
-    </p>
+<div class="container">
+
+    <section class="hero">
+        <h1>Maryam Shaygan</h1>
+
+        <h2>
+            Transportation Engineer | Data Scientist | AI/ML Researcher
+        </h2>
+
+        <p>
+            Welcome to my personal website. I am a transportation engineer
+            and data scientist focused on intelligent transportation systems,
+            traffic operations, machine learning, operational research,
+            and real-time predictive analytics. My work combines engineering,
+            data-driven decision making, and artificial intelligence to
+            improve mobility, safety, and transportation system performance.
+        </p>
+
+        https://github.com/yourusername
+            GitHub
+        </a>
+
+        https://linkedin.com/in/yourprofile
+            LinkedIn
+        </a>
+    </section>
+
+    <section class="section">
+        <h3>About Me</h3>
+
+        <p>
+            I work at the intersection of transportation engineering,
+            machine learning, and data analytics. My interests include
+            traffic signal operations, forecasting models, intelligent
+            transportation systems, and applying AI techniques to solve
+            real-world mobility challenges.
+        </p>
+    </section>
+
+    <section class="section">
+        <h3>Research Interests</h3>
+
+        <ul class="research-list">
+            <li>Intelligent Transportation Systems (ITS)</li>
+            <li>Traffic Operations & Signal Optimization</li>
+            <li>Machine Learning & Deep Learning</li>
+            <li>Real-Time Traffic Prediction</li>
+            <li>Transportation Data Analytics</li>
+            <li>Operational Research</li>
+            <li>Connected & Automated Vehicles</li>
+        </ul>
+    </section>
+
+    <section class="section">
+        <h3>Core Expertise</h3>
+    
+        <div class="skills">
+            <span class="skill">Transportation Optimization</span>
+            <span class="skill">Traffic Signal Optimization</span>
+            <span class="skill">Crash Prediction Modeling</span>
+            <span class="skill">AI for Transportation</span>
+            <span class="skill">Machine Learning</span>
+            <span class="skill">Deep Learning</span>
+            <span class="skill">Predictive Analytics</span>
+            <span class="skill">Intelligent Transportation Systems</span>
+            <span class="skill">Risk & Safety Analysis</span>
+            <span class="skill">Operations Research</span>
+            <span class="skill">Data-Driven Decision Making</span>
+            <span class="skill">Product Development</span>
+        </div>
+    </section>
+
+    <footer>
+        © 2026 Maryam Shaygan
+    </footer>
+
+</div>
+
 </body>
 </html>
