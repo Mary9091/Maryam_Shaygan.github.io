@@ -3,105 +3,336 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Maryam Shaygan</title>
+<title>Maryam Shaygan | Transportation Engineer & AI/ML Researcher</title>
+<meta name="description" content="Maryam Shaygan — transportation engineer and data scientist working on intelligent transportation systems, traffic operations, and machine learning for mobility and safety.">
+<meta property="og:title" content="Maryam Shaygan">
+<meta property="og:description" content="Transportation Engineer | Data Scientist | AI/ML Researcher">
+<meta property="og:type" content="website">
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+:root{
+    --bg:#0A192F;
+    --bg-2:#112240;
+    --accent:#64FFDA;
+    --accent-2:#FFB86B;
+    --text:#E6F1FF;
+    --muted:#A8B2D1;
+    --dim:#8892B0;
 }
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
 
 body{
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(-45deg,#0A192F,#112240,#1D3557,#0A192F);
-    background-size:400% 400%;
-    animation: gradientBG 15s ease infinite;
-    color:white;
+    font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background:var(--bg);
+    color:var(--text);
     line-height:1.7;
+    overflow-x:hidden;
 }
 
-@keyframes gradientBG {
-    0% {background-position:0% 50%;}
-    50% {background-position:100% 50%;}
-    100% {background-position:0% 50%;}
+/* Animated traffic network background */
+#traffic{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+    pointer-events:none;
 }
 
-.container{
+.vignette{
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    background:radial-gradient(ellipse at center, rgba(10,25,47,0.35) 0%, rgba(10,25,47,0.9) 75%);
+}
+
+/* Scroll progress bar */
+#progress{
+    position:fixed;
+    top:0; left:0;
+    height:3px;
+    width:0;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    z-index:20;
+    box-shadow:0 0 10px var(--accent);
+}
+
+/* Navigation */
+nav{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:rgba(10,25,47,0.7);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(100,255,218,0.1);
+}
+
+nav ul{
     max-width:1100px;
     margin:auto;
-    padding:50px 20px;
+    padding:14px 20px;
+    list-style:none;
+    display:flex;
+    justify-content:flex-end;
+    flex-wrap:wrap;
+    gap:24px;
 }
 
+nav a{
+    position:relative;
+    color:#CCD6F6;
+    text-decoration:none;
+    font-size:0.95rem;
+    transition:color 0.3s;
+}
+
+nav a::after{
+    content:"";
+    position:absolute;
+    left:0; bottom:-4px;
+    width:0; height:2px;
+    background:var(--accent);
+    transition:width 0.3s;
+}
+
+nav a:hover, nav a:focus-visible, nav a.active{ color:var(--accent); }
+nav a:hover::after, nav a.active::after{ width:100%; }
+
+main{
+    position:relative;
+    z-index:2;
+    max-width:1100px;
+    margin:auto;
+    padding:0 20px 50px;
+}
+
+/* Hero */
 .hero{
+    min-height:88vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
     text-align:center;
-    padding:100px 20px;
-    animation: fadeIn 1.5s ease;
+    padding:60px 0;
+}
+
+.eyebrow{
+    color:var(--accent);
+    font-family:Consolas, "Courier New", monospace;
+    letter-spacing:2px;
+    font-size:0.95rem;
+    opacity:0;
+    animation:rise 0.8s 0.2s ease forwards;
 }
 
 .hero h1{
-    font-size:4rem;
-    margin-bottom:15px;
-    color:#64FFDA;
+    font-size:clamp(2.6rem, 8vw, 4.8rem);
+    line-height:1.15;
+    margin:12px 0 18px;
+    background:linear-gradient(90deg,var(--accent),#A0FFE8,var(--accent-2),var(--accent));
+    background-size:300% 100%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:rise 0.8s 0.4s ease both, shimmer 8s linear infinite;
 }
 
-.hero h2{
-    font-size:1.6rem;
+.typed-line{
+    font-size:clamp(1.15rem, 3.5vw, 1.7rem);
     font-weight:300;
     color:#CCD6F6;
+    min-height:2.4em;
+    opacity:0;
+    animation:rise 0.8s 0.6s ease forwards;
+}
+
+.typed{ color:var(--text); font-weight:500; }
+
+.cursor{
+    display:inline-block;
+    width:2px;
+    height:1.1em;
+    background:var(--accent);
+    margin-left:3px;
+    vertical-align:-0.15em;
+    animation:blink 1s steps(1) infinite;
 }
 
 .hero p{
-    max-width:700px;
-    margin:30px auto;
+    max-width:640px;
+    margin:22px auto 30px;
     font-size:1.1rem;
-    color:#A8B2D1;
+    color:var(--muted);
+    opacity:0;
+    animation:rise 0.8s 0.8s ease forwards;
+}
+
+.hero .actions{
+    opacity:0;
+    animation:rise 0.8s 1s ease forwards;
 }
 
 .btn{
+    position:relative;
     display:inline-block;
-    padding:12px 24px;
-    margin:10px;
+    padding:12px 26px;
+    margin:8px;
     border-radius:8px;
     text-decoration:none;
     font-weight:600;
-    transition:0.3s;
+    overflow:hidden;
+    transition:transform 0.3s, box-shadow 0.3s;
 }
 
-.github{
-    background:#64FFDA;
-    color:#0A192F;
+.btn::before{
+    content:"";
+    position:absolute;
+    top:0; left:-120%;
+    width:60%; height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.45),transparent);
+    transition:left 0.6s;
 }
 
-.linkedin{
-    border:2px solid #64FFDA;
-    color:#64FFDA;
-}
+.btn:hover::before{ left:140%; }
 
-.btn:hover{
+.btn-primary{ background:var(--accent); color:var(--bg); }
+.btn-outline{ border:2px solid var(--accent); color:var(--accent); }
+
+.btn:hover, .btn:focus-visible{
     transform:translateY(-3px);
+    box-shadow:0 10px 25px -8px rgba(100,255,218,0.6);
 }
 
-.section{
-    margin-top:70px;
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(10px);
-    padding:35px;
-    border-radius:15px;
-    animation: fadeUp 1.5s ease;
+a:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+
+.scroll-hint{
+    margin-top:50px;
+    width:26px; height:42px;
+    border:2px solid var(--dim);
+    border-radius:14px;
+    position:relative;
+    opacity:0;
+    animation:rise 0.8s 1.3s ease forwards;
 }
+
+.scroll-hint::after{
+    content:"";
+    position:absolute;
+    left:50%; top:8px;
+    width:4px; height:8px;
+    margin-left:-2px;
+    border-radius:2px;
+    background:var(--accent);
+    animation:wheel 1.8s ease infinite;
+}
+
+/* Sections */
+.section{
+    margin-top:80px;
+    background:rgba(17,34,64,0.55);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(100,255,218,0.08);
+    padding:38px;
+    border-radius:16px;
+    scroll-margin-top:80px;
+    position:relative;
+    overflow:hidden;
+}
+
+/* Cursor-follow glow inside sections */
+.section::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%), rgba(100,255,218,0.08), transparent 60%);
+    opacity:0;
+    transition:opacity 0.4s;
+    pointer-events:none;
+}
+
+.section:hover::before{ opacity:1; }
 
 .section h3{
-    color:#64FFDA;
-    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    color:var(--accent);
+    margin-bottom:22px;
     font-size:1.8rem;
 }
 
-.research-list li{
-    margin-bottom:12px;
+.section h3 .num{
+    font-family:Consolas, "Courier New", monospace;
+    font-size:1rem;
+    color:var(--accent-2);
 }
 
+.section h3::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:linear-gradient(90deg,rgba(100,255,218,0.4),transparent);
+}
+
+.section p{ color:#CCD6F6; }
+
+/* Reveal on scroll */
+.reveal{
+    opacity:0;
+    transform:translateY(40px);
+    transition:opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible{ opacity:1; transform:none; }
+
+/* Research list as route stops */
+.route{
+    list-style:none;
+    position:relative;
+    padding-left:34px;
+}
+
+.route::before{
+    content:"";
+    position:absolute;
+    left:9px; top:8px; bottom:8px;
+    width:2px;
+    background:repeating-linear-gradient(to bottom,var(--accent) 0 8px,transparent 8px 16px);
+    background-size:2px 16px;
+    animation:dash 1s linear infinite;
+}
+
+.route li{
+    position:relative;
+    margin-bottom:16px;
+    color:#CCD6F6;
+    opacity:0;
+    transform:translateX(-20px);
+    transition:opacity 0.5s ease, transform 0.5s ease, color 0.3s;
+}
+
+.route li::before{
+    content:"";
+    position:absolute;
+    left:-31px; top:7px;
+    width:14px; height:14px;
+    border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--accent);
+    transition:background 0.3s, box-shadow 0.3s;
+}
+
+.route li:hover{ color:var(--text); }
+.route li:hover::before{ background:var(--accent); box-shadow:0 0 12px var(--accent); }
+
+.visible .route li{ opacity:1; transform:none; }
+
+/* Skills */
 .skills{
     display:flex;
     flex-wrap:wrap;
@@ -109,126 +340,419 @@ body{
 }
 
 .skill{
-    background:#112240;
-    border:1px solid #64FFDA;
-    color:#64FFDA;
+    background:var(--bg-2);
+    border:1px solid var(--accent);
+    color:var(--accent);
     padding:10px 18px;
     border-radius:30px;
+    cursor:default;
+    opacity:0;
+    transform:scale(0.6);
+    transition:opacity 0.4s ease, transform 0.4s cubic-bezier(.34,1.56,.64,1), background 0.3s, color 0.3s, box-shadow 0.3s;
 }
 
+.visible .skill{ opacity:1; transform:scale(1); }
+
+.skill:hover{
+    background:var(--accent);
+    color:var(--bg);
+    box-shadow:0 0 18px rgba(100,255,218,0.5);
+    transform:translateY(-4px) scale(1.05);
+}
+
+/* Project / publication cards */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:var(--bg-2);
+    border:1px solid rgba(100,255,218,0.2);
+    border-radius:12px;
+    padding:22px;
+    transition:transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    border-color:var(--accent);
+    box-shadow:0 14px 30px -12px rgba(100,255,218,0.4);
+}
+
+.card h4{ color:var(--text); margin-bottom:8px; font-size:1.15rem; }
+.card p{ color:var(--muted); font-size:0.95rem; }
+.card a{ color:var(--accent); text-decoration:none; font-weight:600; }
+
+.contact{ text-align:center; }
+.contact h3{ justify-content:center; }
+.contact h3::after{ display:none; }
+
 footer{
+    position:relative;
+    z-index:2;
     text-align:center;
     margin-top:80px;
     padding-bottom:30px;
-    color:#8892B0;
+    color:var(--dim);
 }
 
-@keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:translateY(-20px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+/* Keyframes */
+@keyframes rise{
+    from{ opacity:0; transform:translateY(24px); }
+    to{ opacity:1; transform:none; }
 }
 
-@keyframes fadeUp{
-    from{
-        opacity:0;
-        transform:translateY(30px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+@keyframes shimmer{
+    0%{ background-position:0% 50%; }
+    100%{ background-position:300% 50%; }
+}
+
+@keyframes blink{ 50%{ opacity:0; } }
+
+@keyframes wheel{
+    0%{ opacity:1; transform:translateY(0); }
+    100%{ opacity:0; transform:translateY(14px); }
+}
+
+@keyframes dash{
+    to{ background-position:0 16px; }
 }
 
 @media(max-width:768px){
+    .section{ padding:26px 20px; }
+    nav ul{ justify-content:center; gap:16px; }
+    .section h3{ font-size:1.5rem; }
+}
 
-    .hero h1{
-        font-size:2.8rem;
+/* Respect users who turn off motion */
+@media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+        animation:none !important;
+        transition:none !important;
     }
-
-    .hero h2{
-        font-size:1.2rem;
-    }
+    .eyebrow, .hero h1, .typed-line, .hero p, .hero .actions, .scroll-hint,
+    .reveal, .route li, .skill{ opacity:1 !important; transform:none !important; }
+    html{ scroll-behavior:auto; }
 }
 </style>
-
 </head>
 <body>
 
-<div class="container">
+<canvas id="traffic" aria-hidden="true"></canvas>
+<div class="vignette" aria-hidden="true"></div>
+<div id="progress" aria-hidden="true"></div>
+
+<nav aria-label="Main">
+    <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#expertise">Expertise</a></li>
+        <!-- <li><a href="#projects">Projects</a></li> -->
+        <!-- <li><a href="#publications">Publications</a></li> -->
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<main>
 
     <section class="hero">
+        <div class="eyebrow">Hi, my name is</div>
         <h1>Maryam Shaygan</h1>
-
-        <h2>
-            Transportation Engineer | Data Scientist | AI/ML Researcher
-        </h2>
-
+        <div class="typed-line">
+            I'm a <span class="typed" id="typed">Transportation Engineer</span><span class="cursor" aria-hidden="true"></span>
+        </div>
         <p>
-            Welcome to my personal website. I am a transportation engineer
-            and data scientist focused on intelligent transportation systems,
-            traffic operations, machine learning, operational research,
-            and real-time predictive analytics. My work combines engineering,
-            data-driven decision making, and artificial intelligence to
-            improve mobility, safety, and transportation system performance.
+            I use engineering, data, and artificial intelligence to make
+            transportation systems safer, smarter, and more efficient.
         </p>
+        <div class="actions">
+            <a class="btn btn-primary" href="https://github.com/Mary9091" target="_blank" rel="noopener">GitHub</a>
+            <a class="btn btn-outline" href="#about">Learn more</a>
+            <!-- TODO: replace with your LinkedIn URL, then uncomment
+            <a class="btn btn-outline" href="https://www.linkedin.com/in/YOUR-PROFILE" target="_blank" rel="noopener">LinkedIn</a>
+            -->
+        </div>
+        <div class="scroll-hint" aria-hidden="true"></div>
     </section>
 
-    <section class="section">
-        <h3>About Me</h3>
-
+    <section class="section reveal" id="about">
+        <h3><span class="num">01.</span> About Me</h3>
         <p>
             I work at the intersection of transportation engineering,
-            machine learning, and data analytics. My interests include
-            traffic signal operations, forecasting models, intelligent
-            transportation systems, and applying AI techniques to solve
-            real-world mobility challenges.
+            machine learning, and data analytics. My work focuses on
+            intelligent transportation systems, traffic signal operations,
+            operations research, and real-time predictive analytics, with
+            the goal of improving mobility, safety, and system performance
+            through data-driven decision making.
         </p>
     </section>
 
-    <section class="section">
-        <h3>Research Interests</h3>
-
-        <ul class="research-list">
+    <section class="section reveal" id="research">
+        <h3><span class="num">02.</span> Research Interests</h3>
+        <ul class="route">
             <li>Intelligent Transportation Systems (ITS)</li>
-            <li>Traffic Operations & Signal Optimization</li>
-            <li>Machine Learning & Deep Learning</li>
+            <li>Traffic Operations &amp; Signal Optimization</li>
             <li>Real-Time Traffic Prediction</li>
+            <li>Crash Prediction &amp; Safety Analysis</li>
+            <li>Connected &amp; Automated Vehicles</li>
             <li>Transportation Data Analytics</li>
-            <li>Operational Research</li>
-            <li>Connected & Automated Vehicles</li>
         </ul>
     </section>
 
-    <section class="section">
-        <h3>Core Expertise</h3>
-    
+    <section class="section reveal" id="expertise">
+        <h3><span class="num">03.</span> Core Expertise</h3>
         <div class="skills">
-            <span class="skill">Transportation Optimization</span>
-            <span class="skill">Traffic Signal Optimization</span>
-            <span class="skill">Crash Prediction Modeling</span>
-            <span class="skill">AI for Transportation</span>
             <span class="skill">Machine Learning</span>
             <span class="skill">Deep Learning</span>
             <span class="skill">Predictive Analytics</span>
-            <span class="skill">Intelligent Transportation Systems</span>
-            <span class="skill">Risk & Safety Analysis</span>
             <span class="skill">Operations Research</span>
+            <span class="skill">Transportation Optimization</span>
+            <span class="skill">Traffic Signal Optimization</span>
+            <span class="skill">Crash Prediction Modeling</span>
+            <span class="skill">Risk &amp; Safety Analysis</span>
             <span class="skill">Data-Driven Decision Making</span>
             <span class="skill">Product Development</span>
         </div>
     </section>
 
-    <footer>
-        © 2026 Maryam Shaygan
-    </footer>
+    <!-- PROJECTS: fill in, uncomment, and uncomment the nav link above
+    <section class="section reveal" id="projects">
+        <h3><span class="num">04.</span> Projects</h3>
+        <div class="cards">
+            <div class="card">
+                <h4>Project title</h4>
+                <p>One or two sentences on the problem, your method, and the result.</p>
+                <a href="https://github.com/Mary9091/REPO" target="_blank" rel="noopener">View code →</a>
+            </div>
+            <div class="card">
+                <h4>Project title</h4>
+                <p>One or two sentences on the problem, your method, and the result.</p>
+                <a href="#" target="_blank" rel="noopener">Learn more →</a>
+            </div>
+        </div>
+    </section>
+    -->
 
-</div>
+    <!-- PUBLICATIONS: fill in, uncomment, and uncomment the nav link above
+    <section class="section reveal" id="publications">
+        <h3><span class="num">05.</span> Publications</h3>
+        <div class="cards">
+            <div class="card">
+                <h4>Paper title</h4>
+                <p>Authors. <em>Journal or Conference</em>, Year.</p>
+                <a href="https://doi.org/..." target="_blank" rel="noopener">Read paper →</a>
+            </div>
+        </div>
+    </section>
+    -->
+
+    <section class="section reveal contact" id="contact">
+        <h3>Get In Touch</h3>
+        <p>Interested in collaborating or want to talk transportation and AI? Reach out.</p>
+        <div style="margin-top:18px">
+            <a class="btn btn-primary" href="https://github.com/Mary9091" target="_blank" rel="noopener">GitHub</a>
+            <!-- TODO: add your email and LinkedIn, then uncomment
+            <a class="btn btn-outline" href="mailto:YOUR-EMAIL">Email</a>
+            <a class="btn btn-outline" href="https://www.linkedin.com/in/YOUR-PROFILE" target="_blank" rel="noopener">LinkedIn</a>
+            -->
+        </div>
+    </section>
+
+</main>
+
+<footer>© 2026 Maryam Shaygan</footer>
+
+<script>
+(function(){
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* ---------- Typing effect ---------- */
+    var roles = ["Transportation Engineer", "Data Scientist", "AI/ML Researcher", "Traffic Signal Optimizer"];
+    var typedEl = document.getElementById("typed");
+    if(!reduceMotion){
+        var r = 0, c = roles[0].length, deleting = true;
+        function tick(){
+            var word = roles[r];
+            typedEl.textContent = word.slice(0, c);
+            var delay = deleting ? 45 : 90;
+            if(deleting){
+                c--;
+                if(c < 0){ deleting = false; r = (r + 1) % roles.length; c = 0; delay = 300; }
+            } else {
+                c++;
+                if(c > roles[r].length){ deleting = true; c = roles[r].length; delay = 1800; }
+            }
+            setTimeout(tick, delay);
+        }
+        setTimeout(tick, 2200);
+    }
+
+    /* ---------- Reveal on scroll with staggered children ---------- */
+    document.querySelectorAll(".route li, .skill").forEach(function(el, i, list){
+        var siblings = el.parentElement.children;
+        var idx = Array.prototype.indexOf.call(siblings, el);
+        el.style.transitionDelay = (idx * 0.07) + "s";
+    });
+
+    var revealEls = document.querySelectorAll(".reveal");
+    if("IntersectionObserver" in window && !reduceMotion){
+        var io = new IntersectionObserver(function(entries){
+            entries.forEach(function(e){
+                if(e.isIntersecting){ e.target.classList.add("visible"); io.unobserve(e.target); }
+            });
+        }, { threshold:0.15 });
+        revealEls.forEach(function(el){ io.observe(el); });
+    } else {
+        revealEls.forEach(function(el){ el.classList.add("visible"); });
+    }
+
+    /* ---------- Active nav link ---------- */
+    var navLinks = document.querySelectorAll("nav a");
+    var sections = document.querySelectorAll("main section[id]");
+    function updateNav(){
+        var y = window.scrollY + 120, current = "";
+        sections.forEach(function(s){ if(s.offsetTop <= y) current = s.id; });
+        navLinks.forEach(function(a){
+            a.classList.toggle("active", a.getAttribute("href") === "#" + current);
+        });
+    }
+
+    /* ---------- Scroll progress ---------- */
+    var bar = document.getElementById("progress");
+    function onScroll(){
+        var h = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + "%";
+        updateNav();
+    }
+    window.addEventListener("scroll", onScroll, { passive:true });
+    onScroll();
+
+    /* ---------- Cursor glow inside sections ---------- */
+    document.querySelectorAll(".section").forEach(function(sec){
+        sec.addEventListener("mousemove", function(ev){
+            var rect = sec.getBoundingClientRect();
+            sec.style.setProperty("--mx", (ev.clientX - rect.left) + "px");
+            sec.style.setProperty("--my", (ev.clientY - rect.top) + "px");
+        });
+    });
+
+    /* ---------- Traffic network background ---------- */
+    var canvas = document.getElementById("traffic");
+    var ctx = canvas.getContext("2d");
+    var W, H, dpr, spacing, cols, rows, cars = [], lights = [];
+    var mouse = { x:-9999, y:-9999 };
+
+    function setup(){
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = window.innerWidth; H = window.innerHeight;
+        canvas.width = W * dpr; canvas.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        spacing = W < 600 ? 90 : 130;
+        cols = Math.ceil(W / spacing) + 1;
+        rows = Math.ceil(H / spacing) + 1;
+
+        lights = [];
+        for(var i = 0; i < cols; i++){
+            for(var j = 0; j < rows; j++){
+                lights.push({ x:i * spacing, y:j * spacing, phase:Math.random() * 6 });
+            }
+        }
+
+        cars = [];
+        var count = Math.round((cols + rows) * 1.6);
+        for(var k = 0; k < count; k++) cars.push(makeCar());
+    }
+
+    function makeCar(){
+        var horizontal = Math.random() < 0.5;
+        var dir = Math.random() < 0.5 ? 1 : -1;
+        var lane = horizontal ? Math.floor(Math.random() * rows) : Math.floor(Math.random() * cols);
+        var offset = dir * 4; /* drive on one side of the road */
+        return {
+            h: horizontal,
+            dir: dir,
+            pos: Math.random() * (horizontal ? W : H),
+            fixed: lane * spacing + offset,
+            speed: 0.6 + Math.random() * 1.6,
+            color: Math.random() < 0.25 ? "255,184,107" : "100,255,218"
+        };
+    }
+
+    function drawRoads(){
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "rgba(100,255,218,0.06)";
+        ctx.beginPath();
+        for(var i = 0; i < cols; i++){ ctx.moveTo(i * spacing, 0); ctx.lineTo(i * spacing, H); }
+        for(var j = 0; j < rows; j++){ ctx.moveTo(0, j * spacing); ctx.lineTo(W, j * spacing); }
+        ctx.stroke();
+    }
+
+    function drawLights(t){
+        lights.forEach(function(l){
+            var green = Math.sin(t * 0.0008 + l.phase) > 0;
+            var dx = l.x - mouse.x, dy = l.y - mouse.y;
+            var near = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) / 220);
+            var a = 0.18 + near * 0.6;
+            ctx.fillStyle = green ? "rgba(100,255,218," + a + ")" : "rgba(255,120,120," + a + ")";
+            ctx.beginPath();
+            ctx.arc(l.x, l.y, 2 + near * 2.5, 0, Math.PI * 2);
+            ctx.fill();
+        });
+    }
+
+    function drawCars(){
+        cars.forEach(function(car){
+            car.pos += car.speed * car.dir;
+            var limit = car.h ? W : H;
+            if(car.pos > limit + 40) car.pos = -40;
+            if(car.pos < -40) car.pos = limit + 40;
+
+            var x = car.h ? car.pos : car.fixed;
+            var y = car.h ? car.fixed : car.pos;
+            var tail = 26 + car.speed * 10;
+            var tx = car.h ? x - tail * car.dir : x;
+            var ty = car.h ? y : y - tail * car.dir;
+
+            var grad = ctx.createLinearGradient(tx, ty, x, y);
+            grad.addColorStop(0, "rgba(" + car.color + ",0)");
+            grad.addColorStop(1, "rgba(" + car.color + ",0.55)");
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(tx, ty);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+
+            ctx.fillStyle = "rgba(" + car.color + ",0.95)";
+            ctx.beginPath();
+            ctx.arc(x, y, 2, 0, Math.PI * 2);
+            ctx.fill();
+        });
+    }
+
+    function frame(t){
+        ctx.clearRect(0, 0, W, H);
+        drawRoads();
+        drawLights(t || 0);
+        drawCars();
+        if(!reduceMotion) requestAnimationFrame(frame);
+    }
+
+    window.addEventListener("mousemove", function(e){ mouse.x = e.clientX; mouse.y = e.clientY; });
+    window.addEventListener("mouseleave", function(){ mouse.x = mouse.y = -9999; });
+
+    var resizeTimer;
+    window.addEventListener("resize", function(){
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function(){ setup(); if(reduceMotion) frame(0); }, 150);
+    });
+
+    setup();
+    frame(0);
+})();
+</script>
 
 </body>
 </html>
